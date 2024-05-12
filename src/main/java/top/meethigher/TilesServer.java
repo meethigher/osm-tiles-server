@@ -1,6 +1,8 @@
 package top.meethigher;
 
+import top.meethigher.cache.impl.LeastRecentlyUsedCacheStore;
 import top.meethigher.simple.startup.log.SimpleApplication;
+import top.meethigher.web.DataSourceProvider;
 import top.meethigher.web.WebServer;
 
 public class TilesServer extends SimpleApplication {
@@ -10,6 +12,7 @@ public class TilesServer extends SimpleApplication {
 
     @Override
     public void run() throws Exception {
-        new WebServer().start();
+        LeastRecentlyUsedCacheStore<String, byte[]> cache = new LeastRecentlyUsedCacheStore<>(10000, true);
+        new WebServer(new DataSourceProvider().getJdbcTemplate(), cache).start();
     }
 }
