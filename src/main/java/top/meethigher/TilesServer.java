@@ -12,7 +12,7 @@ public class TilesServer extends SimpleApplication {
 
     @Override
     public void run() throws Exception {
-        LeastRecentlyUsedCacheStore<String, byte[]> cache = new LeastRecentlyUsedCacheStore<>(10000, true);
+        LeastRecentlyUsedCacheStore<String, byte[]> cache = new LeastRecentlyUsedCacheStore<>(100, true);
         new WebServer(new DataSourceProvider().getJdbcTemplate(), cache).start();
     }
 }
